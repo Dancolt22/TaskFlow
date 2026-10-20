@@ -1,0 +1,398 @@
+/* TaskFlow Global Stylesheet */
+/* Complete Line-by-Line Descriptive CSS Reference */
+
+/* Design Tokens & CSS Custom Properties */
+:root {
+  /* Main vibrant red brand color used for header banner, buttons, and active borders */
+  --red: #c62828;
+
+  /* Darker crimson red used for button hover states and card heading text */
+  --red-dark: #8e0000;
+
+  /* Pure white color used for card backgrounds, input fields, and contrast text */
+  --white: #ffffff;
+
+  /* Soft light grey background color applied across the entire viewport body */
+  --grey: #f5f5f5;
+
+  /* High-contrast neutral charcoal color for readable body text */
+  --text: #252525;
+
+  /* Subtle neutral grey border color for cards, input outlines, and dividers */
+  --border: #e5e7eb;
+}
+
+/* Base & Universal Reset Styles */
+/* Apply border-box sizing universally so padding and borders do not expand element dimensions */
+* {
+  /* Include padding and border in the element's total calculated width and height */
+  box-sizing: border-box;
+}
+
+/* Base Body Styles */
+body {
+  /* Remove default browser margin so content touches the edges cleanly */
+  margin: 0;
+
+  /* Set page background to soft grey CSS variable */
+  background: var(--grey);
+
+  /* Set default text color to dark charcoal CSS variable */
+  color: var(--text);
+
+  /* System font stack for clean, native typography without external web font latency */
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* Set standard line height for clear vertical text readability */
+  line-height: 1.5;
+}
+
+/* Header & Application Branding Banner */
+.header {
+  /* Fill header background with primary brand red */
+  background: var(--red);
+
+  /* Set header text color to white for contrast */
+  color: var(--white);
+
+  /* Vertical padding 24px and horizontal padding 16px */
+  padding: 1.5rem 1rem;
+
+  /* Center-align the header title and description */
+  text-align: center;
+}
+
+.header h1 {
+  /* Remove default heading margin */
+  margin: 0;
+
+  /* Set main application title font size to 28px */
+  font-size: 1.75rem;
+}
+
+.header p {
+  /* Set top margin to 4px and remove other margins */
+  margin: 0.25rem 0 0;
+
+  /* Slightly reduce opacity for visual hierarchy below the title */
+  opacity: 0.9;
+}
+
+/* Page Layout Grid */
+.layout {
+  /* Establish CSS Grid layout for page columns */
+  display: grid;
+
+  /* Create two equal-width columns on desktop screens */
+  grid-template-columns: 1fr 1fr;
+
+  /* Add 24px spacing between the two columns */
+  gap: 1.5rem;
+
+  /* Restrict maximum width of the layout container for comfortable reading */
+  max-width: 1000px;
+
+  /* Center the layout container horizontally with 24px vertical margins */
+  margin: 1.5rem auto;
+
+  /* Add 16px horizontal inner padding to avoid touching browser viewport edges */
+  padding: 0 1rem;
+
+  /* Align both grid columns to the top so cards don't stretch vertically */
+  align-items: start;
+}
+
+/* Column Container */
+.column {
+  /* Display child form cards inside a vertical grid stack */
+  display: grid;
+
+  /* Add 24px gap between stacked cards */
+  gap: 1.5rem;
+}
+
+/* Reusable Card Component Container */
+.card {
+  /* Card background is pure white */
+  background: var(--white);
+
+  /* Add 24px inner padding around card content */
+  padding: 1.5rem;
+
+  /* Rounded corners with 8px radius */
+  border-radius: 8px;
+
+  /* Outline card with subtle grey border */
+  border: 1px solid var(--border);
+
+  /* Subtle drop shadow for depth elevation */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.card h2 {
+  /* Add 16px bottom margin and remove top/side margins */
+  margin: 0 0 1rem;
+
+  /* Set card section title font size to approx 19px */
+  font-size: 1.2rem;
+
+  /* Use dark crimson red for card headings */
+  color: var(--red-dark);
+}
+
+/* Form Controls & Accessible Typography */
+label {
+  /* Display labels as block elements to place them on their own line */
+  display: block;
+
+  /* Add 12px top margin and 4px bottom margin */
+  margin: 0.75rem 0 0.25rem;
+
+  /* Semi-bold font weight for field identification */
+  font-weight: 600;
+
+  /* Slightly compact font size for labels */
+  font-size: 0.9rem;
+}
+
+/* Shared Input, Textarea, and Select Field Styles */
+input,
+textarea,
+select {
+  /* Expand field width to fill 100% of its parent column */
+  width: 100%;
+
+  /* Inner padding: 9.6px vertical and 11.2px horizontal */
+  padding: 0.6rem 0.7rem;
+
+  /* 1px light grey border outline */
+  border: 1px solid var(--border);
+
+  /* 6px rounded border radius matching design system */
+  border-radius: 6px;
+
+  /* Inherit system font family from body */
+  font: inherit;
+
+  /* Text color inside inputs */
+  color: var(--text);
+
+  /* Pure white background for input fields */
+  background: var(--white);
+}
+
+/* Accessible Focus States */
+/* When inputs or buttons gain focus, display an accessible high-contrast focus ring */
+input:focus,
+textarea:focus,
+select:focus,
+button:focus-visible {
+  /* 2px solid brand red focus ring */
+  outline: 2px solid var(--red);
+
+  /* 1px spacing between element border and the focus outline */
+  outline-offset: 1px;
+}
+
+/* Side-by-Side Row Layout for Priority & Due Date */
+.row {
+  /* Grid layout for row elements */
+  display: grid;
+
+  /* Split row into two equal 50% columns */
+  grid-template-columns: 1fr 1fr;
+
+  /* 16px horizontal spacing between the two input columns */
+  gap: 1rem;
+}
+
+/* Interactive Buttons */
+button {
+  /* Add 16px top margin to separate button from preceding fields */
+  margin-top: 1rem;
+
+  /* Vertical padding 10.4px and horizontal padding 20px */
+  padding: 0.65rem 1.25rem;
+
+  /* Primary brand red background */
+  background: var(--red);
+
+  /* White text for high contrast */
+  color: var(--white);
+
+  /* Remove default browser button borders */
+  border: 0;
+
+  /* 6px rounded corners */
+  border-radius: 6px;
+
+  /* Inherit typography from body */
+  font: inherit;
+
+  /* Bold button label text */
+  font-weight: 600;
+
+  /* Show clickable pointer cursor on hover */
+  cursor: pointer;
+}
+
+/* Button Hover State */
+button:hover {
+  /* Darken button background to crimson red on mouse hover */
+  background: var(--red-dark);
+}
+
+/* Button Disabled State (During API submission) */
+button:disabled {
+  /* Reduce opacity to 60% to visibly communicate inactive state */
+  opacity: 0.6;
+
+  /* Change cursor to indicate action is unavailable */
+  cursor: not-allowed;
+}
+
+/* Feedback & Status Message Banners */
+.message {
+  /* 16px top margin to separate message from form inputs */
+  margin: 1rem 0 0;
+
+  /* Inner padding around message text */
+  padding: 0.6rem 0.8rem;
+
+  /* 6px rounded corners */
+  border-radius: 6px;
+
+  /* Slightly compact font size */
+  font-size: 0.9rem;
+}
+
+/* Error Message Banner */
+.message.error {
+  /* Light pastel red background */
+  background: #fdecec;
+
+  /* Dark crimson red text for readability */
+  color: var(--red-dark);
+
+  /* Solid red border line */
+  border: 1px solid var(--red);
+}
+
+/* Success Message Banner */
+.message.success {
+  /* Soft neutral grey background */
+  background: var(--grey);
+
+  /* Standard dark charcoal text */
+  color: var(--text);
+
+  /* Subtle border line on top, right, and bottom */
+  border: 1px solid var(--border);
+
+  /* Distinct thick 4px red accent bar on the left */
+  border-left: 4px solid var(--red);
+}
+
+/* Task List Items */
+.tasks {
+  /* Remove default browser bullet list styling */
+  list-style: none;
+
+  /* Reset default unordered list margins */
+  margin: 0;
+
+  /* Reset default unordered list padding */
+  padding: 0;
+}
+
+.tasks li {
+  /* Add vertical padding of 14.4px inside each task list row */
+  padding: 0.9rem 0;
+
+  /* Separator divider line between tasks */
+  border-top: 1px solid var(--border);
+}
+
+/* Remove the top border from the very first task in the list */
+.tasks li:first-child {
+  /* No top border on the first item */
+  border-top: 0;
+}
+
+.tasks p {
+  /* Compact 4px vertical margin around task description text */
+  margin: 0.25rem 0;
+}
+
+.tasks small {
+  /* Muted grey color for the due date timestamp */
+  color: #666;
+}
+
+/* Task Item Header Row */
+.task-head {
+  /* Flexbox layout to align title and priority badge */
+  display: flex;
+
+  /* Push title to left and priority badge to right */
+  justify-content: space-between;
+
+  /* 8px minimum gap between title and badge */
+  gap: 0.5rem;
+}
+
+/* Priority Pill Badge */
+.badge {
+  /* Compact padding inside the priority pill */
+  padding: 0.1rem 0.6rem;
+
+  /* Fully rounded pill shape */
+  border-radius: 999px;
+
+  /* Compact 12.8px badge font size */
+  font-size: 0.8rem;
+
+  /* Default thin border */
+  border: 1px solid var(--border);
+}
+
+/* High Priority Badge */
+.badge.high {
+  /* Solid brand red background */
+  background: var(--red);
+
+  /* White text for contrast */
+  color: var(--white);
+
+  /* Matching red border */
+  border-color: var(--red);
+}
+
+/* Medium Priority Badge */
+.badge.medium {
+  /* White background */
+  background: var(--white);
+
+  /* Dark red text */
+  color: var(--red-dark);
+
+  /* Red border outline */
+  border-color: var(--red);
+}
+
+/* Low Priority Badge */
+.badge.low {
+  /* Neutral grey background */
+  background: var(--grey);
+
+  /* Dark text */
+  color: var(--text);
+}
+
+/* Responsive Media Query for Mobile Viewports */
+@media (max-width: 760px) {
+  .layout {
+    /* Stack the two columns vertically on screens smaller than 760px */
+    grid-template-columns: 1fr;
+  }
+}

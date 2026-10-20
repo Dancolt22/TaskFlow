@@ -1,0 +1,411 @@
+====================================================================================================
+                             TASKFLOW PROJECT SKELETAL MAP & ARCHITECTURE
+====================================================================================================
+This map provides a skeletal overview of the entire TaskFlow full-stack project.
+Instead of raw code contents, each entry outlines the design patterns, architectural paradigms,
+SOLID principles, Spring Boot features, React mechanics, and database concepts implemented.
+====================================================================================================
+
+----------------------------------------------------------------------------------------------------
+1. HIGH-LEVEL SKELETAL TREE STRUCTURE
+----------------------------------------------------------------------------------------------------
+
+taskflow/
+├── .env                                   -> [Environment / 12-Factor App Config]
+├── .env.example                           -> [Configuration Contract / Secrets Template]
+├── .gitignore                             -> [VCS Security / Hygiene]
+├── DEVELOPMENT_ORDER.txt                  -> [Process Engineering / Pedagogical Workflow]
+├── README.md                              -> [Project Documentation & High-Level Architecture]
+├── map.txt                                -> [Structural & Architectural Concept Map]
+│
+├── client/                                -> [Frontend Presentation Tier: React + Vite SPA]
+│   ├── index.html                         -> [Single-Page Application Root Shell]
+│   ├── package.json                       -> [Client Dependency & Lifecycle Scripts Manifest]
+│   ├── package-lock.json                  -> [Deterministic Dependency Lock Tree]
+│   ├── vite.config.js                     -> [Build Tooling & Dev Server Bundler Config]
+│   └── src/
+│       ├── main.jsx                       -> [Application Bootstrapper & DOM Mount Point]
+│       ├── App.jsx                        -> [Root Container / Mediator / State Lifting Hub]
+│       ├── index.css                      -> [Design System Foundation / CSS Custom Properties]
+│       ├── services/
+│       │   └── api.js                     -> [Service Layer Pattern / Centralized Fetch Adapter]
+│       └── components/
+│           ├── Message.jsx                -> [Dumb/Presentational Component / Reusability]
+│           ├── TaskList.jsx               -> [Read-Only List View / Virtual DOM Mapping]
+│           ├── TaskForm.jsx               -> [Controlled Component / Local State & Form Handler]
+│           └── SignupForm.jsx             -> [Controlled Form / Validation & Sanitization]
+│
+└── server/                                -> [Backend Tier: Java + Spring Boot + SQL RDBMS]
+    ├── pom.xml                            -> [Maven Declarative Build & Dependency Descriptor]
+    ├── README.md                          -> [Backend Documentation & Run/Test Guides]
+    └── src/
+        ├── main/
+        │   ├── resources/
+        │   │   └── application.properties -> [Spring Configuration / SQL DataSource / Port Config]
+        │   └── java/com/taskflow/
+        │       ├── TaskFlowApplication.java
+        │       │                          -> [Spring Boot Microservice Entry Point]
+        │       ├── config/
+        │       │   ├── WebConfig.java     -> [CORS Filter Configuration / Cross-Origin Security]
+        │       │   └── SecurityConfig.java-> [Spring Inversion of Control / PasswordEncoder Bean]
+        │       ├── entity/
+        │       │   ├── Task.java          -> [JPA Relational ORM Entity / Domain Model]
+        │       │   └── User.java          -> [JPA Relational ORM Entity / Security Credentials]
+        │       ├── repository/
+        │       │   ├── TaskRepository.java-> [Repository Pattern / Spring Data JPA Interface]
+        │       │   └── UserRepository.java-> [Repository Pattern / Query Method Derivation]
+        │       ├── dto/
+        │       │   ├── TaskRequest.java   -> [Data Transfer Object / Inbound Bean Validation]
+        │       │   ├── TaskResponse.java  -> [Data Transfer Object / DTO Adapter & Projection]
+        │       │   ├── SignupRequest.java -> [Data Transfer Object / Inbound Credential Validation]
+        │       │   └── UserResponse.java  -> [Data Transfer Object / Sensitive Field Encapsulation]
+        │       ├── service/
+        │       │   ├── TaskService.java   -> [Service Layer / Business Logic / @Transactional]
+        │       │   └── UserService.java   -> [Service Layer / BCrypt Hashing / Conflict Checks]
+        │       ├── controller/
+        │       │   ├── TaskController.java-> [REST Controller / Routing / HTTP Contract Handler]
+        │       │   └── SignupController.java
+        │       │                          -> [REST Controller / User Registration Endpoint]
+        │       └── exception/
+        │           ├── GlobalExceptionHandler.java
+        │           │                      -> [Centralized AOP Exception Handler / @RestControllerAdvice]
+        │           ├── ErrorResponse.java -> [Standardized RFC-Compliant Error Payload DTO]
+        │           ├── BadRequestException.java
+        │           │                      -> [Custom Domain Runtime Exception (HTTP 400)]
+        │           └── ConflictException.java
+        │                                  -> [Custom Domain Runtime Exception (HTTP 409)]
+        └── test/
+            ├── resources/
+            │   └── application-test.properties
+            │                              -> [Test SQL In-Memory Isolation Configuration]
+            └── java/com/taskflow/
+                ├── TaskFlowApplicationTests.java
+                │                          -> [Spring Context Health & Bean Wiring Test]
+                ├── controller/
+                │   ├── TaskControllerTest.java
+                │   │                      -> [MockMvc Web Layer Test / HTTP Status & Schema Mocking]
+                │   └── SignupControllerTest.java
+                │                          -> [MockMvc Web Layer Test / Validation & Conflict Edge-Cases]
+                ├── service/
+                │   └── TaskServiceTest.java
+                │                          -> [Pure Unit Testing / Mockito Isolation / Behavior Verification]
+                └── integration/
+                    └── TaskFlowIntegrationTest.java
+                                           -> [Full-Stack E2E Spring Boot + SQL Relational Test]
+
+====================================================================================================
+2. DETAILED SKELETAL SPREAD: PRINCIPLES, PATTERNS & FRAMEWORK MECHANISMS
+====================================================================================================
+
+----------------------------------------------------------------------------------------------------
+ROOT DIRECTORY
+----------------------------------------------------------------------------------------------------
+
+File: /.env
+- Concepts & Standards: 12-Factor App Methodology (Factor III: Config in Environment), Separation of
+  Secrets from Codebase, Environment Segregation.
+- Engineering Role: Keeps runtime database URLs, ports, and allowed client origins isolated from git.
+
+File: /.env.example
+- Concepts & Standards: Documentation as Code, Safe Template Pattern, Self-Documenting Onboarding.
+- Engineering Role: Provides the schema of required environment variables without leaking credentials.
+
+File: /.gitignore
+- Concepts & Standards: VCS Hygiene, Secret Leak Prevention, Build Artifact Isolation.
+- Engineering Role: Prevents node_modules, compiled .class/.jar targets, and secrets (.env) from git.
+
+File: /DEVELOPMENT_ORDER.txt
+- Concepts & Standards: Software Development Lifecycle (SDLC), Backend-First Contract Architecture,
+  Component Construction Sequence (Skeleton -> State -> Styles -> Interactivity -> Polish).
+- Engineering Role: Architectural roadmap outlining full-stack execution stages.
+
+File: /README.md
+- Concepts & Standards: Technical Documentation, System Context Overview, Operational Runbook.
+- Engineering Role: Project onboarding, architectural summary, and operational guidelines.
+
+File: /map.txt
+- Concepts & Standards: Architectural Blueprint, Static System Analysis, Structural Topography.
+- Engineering Role: Comprehensive conceptual cross-reference for all files in the project.
+
+----------------------------------------------------------------------------------------------------
+CLIENT TIER (React + Vite)
+----------------------------------------------------------------------------------------------------
+
+File: /client/index.html
+- Concepts & Standards: Single-Page Application (SPA) Host Document, HTML5 Semantic Boilerplate,
+  Modern ES Module Import Host (`<script type="module" src="/src/main.jsx">`).
+- Engineering Role: Entry HTML container and mount anchor (`<div id="root">`) for React DOM.
+
+File: /client/package.json
+- Concepts & Standards: Declarative Dependency Manifest, Semantic Versioning (SemVer), Lifecycle Script Hooks.
+- Engineering Role: Manages React, React-DOM, and Vite bundler dependencies and execution scripts.
+
+File: /client/vite.config.js
+- Concepts & Standards: Hot Module Replacement (HMR), Modern ESM Build Optimization, Plugin Pipeline.
+- Engineering Role: Configures Vite compiler and the official @vitejs/plugin-react fast-refresh engine.
+
+File: /client/src/main.jsx
+- Concepts & Standards: Application Bootstrap, React 18 Concurrent Root API (`createRoot`), Strict Mode.
+- Engineering Role: Mounts the top-level `<App />` component directly into `#root`.
+
+File: /client/src/App.jsx
+- SOLID Principles:
+  * Single Responsibility Principle (SRP): Coordinates top-level layout and orchestrates shared state.
+- React Architecture & Design Patterns:
+  * Mediator Pattern: Mediates communication between TaskForm and TaskList via lifted state.
+  * State Lifting: Keeps `tasks`, `loading`, and `error` in common ancestor to broadcast to siblings.
+  * Unidirectional Data Flow: Passes states down via props and actions up via callback functions (`onSaved`).
+  * React Hooks: `useState` (stateful lifecycle) and `useEffect` (side-effect data fetching on mount).
+
+File: /client/src/index.css
+- Concepts & Standards: Design System Foundation, CSS Custom Properties (CSS Tokens: `--red`, `--grey`),
+  Responsive Grid Layouts, Mobile-First Media Queries, Defensive CSS Box-Sizing (`box-sizing: border-box`).
+- Engineering Role: Unified presentation layer defining typography, inputs, badges, and dual columns.
+
+File: /client/src/services/api.js
+- SOLID Principles:
+  * Single Responsibility Principle (SRP): Solely responsible for external HTTP communication.
+  * Dependency Inversion Principle (DIP): UI components depend on abstract service functions, not raw fetch.
+  * DRY (Don't Repeat Yourself): Centralizes base URL, headers, JSON stringification, and error extraction.
+- Design Patterns:
+  * Service Layer Pattern / API Gateway Adapter Pattern: Abstracts network calls behind named functions.
+  * Error Normalizer: Translates HTTP error responses into clean JavaScript exceptions.
+
+File: /client/src/components/Message.jsx
+- SOLID Principles:
+  * Single Responsibility Principle (SRP): Purely renders contextual feedback notifications.
+- React Architecture & Design Patterns:
+  * Presentational / Dumb Component: Stateless, driven strictly by `{ type, text }` props.
+  * Accessible RIA Role Modeling: Uses `role="alert"` and `role="status"` for screen readers.
+
+File: /client/src/components/TaskForm.jsx
+- SOLID Principles:
+  * Single Responsibility Principle (SRP): Exclusively responsible for gathering, validating, and submitting tasks.
+- React Architecture & Design Patterns:
+  * Controlled Component Pattern: Input values bound directly to React `useState` hooks.
+  * Optimistic UI & Defensive Interactivity: Disables submit button during active network requests.
+  * Callback Inversion (`onSaved`): Triggers parent component refresh upon successful persistence.
+
+File: /client/src/components/SignupForm.jsx
+- SOLID Principles:
+  * Single Responsibility Principle (SRP): Dedicated strictly to user registration credentials.
+- React Architecture & Design Patterns:
+  * Controlled Component Pattern: Manages `fullName`, `email`, and masked `password` state.
+  * Client-Side Guard Validation: Checks non-blank constraints and minimum 8-character password length.
+  * Sensitive Data State Purge: Resets password from client RAM upon successful backend registration.
+
+File: /client/src/components/TaskList.jsx
+- SOLID Principles:
+  * Single Responsibility Principle (SRP): Dedicated strictly to rendering the collection of saved tasks.
+- React Architecture & Design Patterns:
+  * Pure Presentational Component: Consumes `tasks`, `loading`, and `error` purely via props.
+  * Virtual DOM Reconciliation: Utilizes unique `key={task._id}` for efficient DOM reconciliation.
+  * Dynamic Badge Variant Dispatch: Renders CSS class based on priority (`badge high`, `badge medium`, `badge low`).
+  * Defensive Date Formatting: Converts ISO date strings to localized UTC date strings.
+
+----------------------------------------------------------------------------------------------------
+SERVER TIER (Java + Spring Boot + SQL Relational Database)
+----------------------------------------------------------------------------------------------------
+
+File: /server/pom.xml
+- Concepts & Standards: Declarative Build Automation (Maven), Dependency Management, Parent POM Inheritance.
+- Framework Components Declared:
+  * `spring-boot-starter-web`: RESTful API dispatcher and embedded web container.
+  * `spring-boot-starter-data-jpa`: Relational ORM mapping with Hibernate and Spring Data.
+  * `spring-boot-starter-validation`: Jakarta Bean Validation (JSR-380).
+  * `spring-security-crypto`: Enterprise cryptographic hashing algorithms (BCrypt).
+  * `h2`, `postgresql`, `mysql-connector-j`: Relational SQL Database drivers.
+  * `spring-boot-starter-test`: Testing ecosystem (JUnit 5, Mockito, AssertJ, MockMvc).
+
+File: /server/src/main/resources/application.properties
+- Concepts & Standards: Centralized Configuration, Infrastructure-as-Configuration.
+- Framework Features:
+  * Server Port Binding (`server.port=5000`).
+  * Relational SQL DataSource Configuration (`spring.datasource.url=jdbc:h2:mem:taskflowdb`).
+  * JPA / Hibernate Dialect Binding (`spring.jpa.database-platform=org.hibernate.dialect.H2Dialect`).
+  * Schema Auto-Migration Strategy (`spring.jpa.hibernate.ddl-auto=update`).
+  * Embedded SQL Web Inspector Console (`spring.h2.console.enabled=true`).
+
+File: /server/src/test/resources/application-test.properties
+- Concepts & Standards: Isolated Test Environment, Ephemeral In-Memory Database Sandbox.
+- Framework Features:
+  * `ddl-auto=create-drop`: Ensures clean database schema creation and teardown per test cycle.
+  * `server.port=0`: Dynamic port allocation to avoid collision during parallel runs.
+
+File: /server/src/main/java/com/taskflow/TaskFlowApplication.java
+- Concepts & Standards: Microservice Bootstrap, Component Scanning, Auto-Configuration Engine.
+- Framework Features:
+  * `@SpringBootApplication`: Meta-annotation bundling `@Configuration`, `@EnableAutoConfiguration`,
+    and `@ComponentScan`.
+
+File: /server/src/main/java/com/taskflow/config/WebConfig.java
+- SOLID Principles:
+  * Open/Closed Principle (OCP): Extends Spring's WebMvcConfigurer without modifying framework internals.
+- Framework Features:
+  * Cross-Origin Resource Sharing (CORS): Configures CORS origins, methods, and credential handling.
+
+File: /server/src/main/java/com/taskflow/config/SecurityConfig.java
+- SOLID Principles:
+  * Dependency Inversion Principle (DIP): Exposes `PasswordEncoder` abstraction rather than concrete class.
+- Framework Features:
+  * Spring IoC Container / `@Configuration` + `@Bean`: Registers `BCryptPasswordEncoder` bean with
+    automatic 10-round salt generation.
+
+File: /server/src/main/java/com/taskflow/entity/Task.java
+- Concepts & Standards: Object-Relational Mapping (ORM), Domain Model Encapsulation, SQL Table Schema.
+- Framework Features:
+  * Jakarta Persistence Annotations: `@Entity`, `@Table(name = "tasks")`, `@Id`, `@GeneratedValue`.
+  * Database Constraints: Nullability checks, TEXT column definitions.
+  * JPA Entity Lifecycle Interceptors: `@PrePersist` and `@PreUpdate` for automated UTC audit timestamps.
+
+File: /server/src/main/java/com/taskflow/entity/User.java
+- Concepts & Standards: Domain Model Encapsulation, Identity & Credential Isolation.
+- Framework Features:
+  * Jakarta Persistence: `@Entity`, `@Table(name = "users")`.
+  * SQL Relational Schema Uniqueness: `@Column(unique = true, nullable = false)`.
+  * Security Best Practice: Never stores raw passwords; persists exclusively `passwordHash`.
+
+File: /server/src/main/java/com/taskflow/repository/TaskRepository.java
+- SOLID Principles:
+  * Interface Segregation Principle (ISP): Exposes clean repository API without forcing unused methods.
+  * Dependency Inversion Principle (DIP): Higher-level services depend on this interface.
+- Design Patterns:
+  * Repository Pattern: Abstracts raw SQL query strings and database transactions behind domain interfaces.
+- Framework Features:
+  * Spring Data JPA / Hibernate: Query Method Derivation (`findAllByOrderByCreatedAtDesc()`).
+
+File: /server/src/main/java/com/taskflow/repository/UserRepository.java
+- SOLID Principles:
+  * Interface Segregation Principle (ISP) & Repository Pattern.
+- Framework Features:
+  * Derived Boolean Query Execution: `boolean existsByEmail(String email)`.
+  * Derived Optional Query Execution: `Optional<User> findByEmail(String email)`.
+
+File: /server/src/main/java/com/taskflow/dto/TaskRequest.java
+- SOLID Principles:
+  * Single Responsibility Principle (SRP): Dedicated exclusively to capturing and validating inbound task JSON.
+- Framework Features:
+  * Jakarta Bean Validation (JSR-380): `@NotBlank`, `@NotNull`, `@Pattern(regexp = "Low|Medium|High")`.
+  * Jackson Date Formatting: `@JsonFormat(pattern = "yyyy-MM-dd")`.
+
+File: /server/src/main/java/com/taskflow/dto/TaskResponse.java
+- SOLID Principles:
+  * Single Responsibility Principle (SRP): Dedicated exclusively to formatting outbound task JSON.
+- Design Patterns:
+  * Adapter Pattern / Projection: Adapts SQL relational Long ID into MongoDB-compatible String `_id`.
+- Framework Features:
+  * Jackson JSON Custom Property Binding: `@JsonProperty("_id")` alongside standard `id`.
+
+File: /server/src/main/java/com/taskflow/dto/SignupRequest.java
+- SOLID Principles:
+  * Single Responsibility Principle (SRP): Validates incoming registration requests.
+- Framework Features:
+  * Jakarta Bean Validation: `@NotBlank`, `@Email`, `@Size(min = 8)` enforcing password length policy.
+
+File: /server/src/main/java/com/taskflow/dto/UserResponse.java
+- SOLID Principles:
+  * Information Hiding & Encapsulation: Prevents password hashes from ever leaving the backend boundary.
+- Design Patterns:
+  * DTO Projection: Exposes only safe fields (`id`, `_id`, `fullName`, `email`, `createdAt`).
+
+File: /server/src/main/java/com/taskflow/service/TaskService.java
+- SOLID Principles:
+  * Single Responsibility Principle (SRP): Houses task business logic, trimming, and entity conversion.
+  * Dependency Inversion Principle (DIP): Injected with TaskRepository via constructor injection.
+- Design Patterns:
+  * Service Layer Pattern: Encapsulates domain logic between controller and repository.
+- Framework Features:
+  * Declarative Transaction Management: `@Transactional(readOnly = true)` and `@Transactional`.
+
+File: /server/src/main/java/com/taskflow/service/UserService.java
+- SOLID Principles:
+  * Single Responsibility Principle (SRP): Coordinates user registration, uniqueness checks, and hashing.
+  * Dependency Inversion Principle (DIP): Injected with UserRepository and PasswordEncoder interface.
+- Design Patterns & Security:
+  * Password Hashing via BCrypt: Hashes plaintext passwords before persistence.
+  * Duplicate Email Guard: Checks database index before insert and throws ConflictException.
+
+File: /server/src/main/java/com/taskflow/controller/TaskController.java
+- SOLID Principles:
+  * Single Responsibility Principle (SRP): Handles HTTP routing, status codes, and request dispatching for tasks.
+  * Dependency Inversion Principle (DIP): Injected with TaskService via constructor injection.
+- Design Patterns:
+  * Front Controller / REST Controller Pattern.
+- Framework Features:
+  * `@RestController`, `@RequestMapping("/api/tasks")`, `@GetMapping`, `@PostMapping`.
+  * Automatic Inbound Validation Trigger: `@Valid @RequestBody`.
+  * HTTP Semantic Response Formulation: Returns `200 OK` and `201 CREATED`.
+
+File: /server/src/main/java/com/taskflow/controller/SignupController.java
+- SOLID Principles:
+  * Single Responsibility Principle (SRP): Handles HTTP routing and dispatching for user signup.
+- Framework Features:
+  * `@RestController`, `@RequestMapping("/api/signup")`, `@PostMapping`.
+  * Inbound Validation & 201 Created Response.
+
+File: /server/src/main/java/com/taskflow/exception/GlobalExceptionHandler.java
+- SOLID Principles:
+  * Single Responsibility Principle (SRP): Centralizes all application exception translation.
+  * Open/Closed Principle (OCP): New exceptions can be mapped without modifying existing controllers.
+- Design Patterns:
+  * Interceptor / Aspect-Oriented Programming (AOP): Intercepts exceptions thrown across all controllers.
+- Framework Features:
+  * `@RestControllerAdvice`, `@ExceptionHandler`.
+  * MethodArgumentNotValidException: Formats validation failures into clean `{ "message": "..." }` JSON.
+  * Custom Exception Mapping: Maps `BadRequestException` to HTTP 400 and `ConflictException` to HTTP 409.
+
+File: /server/src/main/java/com/taskflow/exception/ErrorResponse.java
+- Concepts & Standards: Consistent Error Payload Contract.
+- Engineering Role: Standardizes error JSON fields (`message`, `status`, `timestamp`) for client consumption.
+
+File: /server/src/main/java/com/taskflow/exception/BadRequestException.java
+- Concepts & Standards: Unchecked Domain Exception (HTTP 400 Bad Request).
+
+File: /server/src/main/java/com/taskflow/exception/ConflictException.java
+- Concepts & Standards: Unchecked Domain Exception (HTTP 409 Resource Conflict).
+
+File: /server/README.md
+- Concepts & Standards: Technical Documentation, Runbook, SQL Database switching instructions.
+
+----------------------------------------------------------------------------------------------------
+TEST TIER (Verification & Quality Assurance)
+----------------------------------------------------------------------------------------------------
+
+File: /server/src/test/java/com/taskflow/TaskFlowApplicationTests.java
+- Concepts & Standards: Smoke Testing / Context Loading.
+- Framework Features:
+  * `@SpringBootTest`: Validates that the Spring ApplicationContext, JPA entities, and SQL DataSource boot cleanly.
+
+File: /server/src/test/java/com/taskflow/controller/TaskControllerTest.java
+- Concepts & Standards: Web Slice Unit Testing, HTTP Contract Verification.
+- Framework Features:
+  * `@WebMvcTest(TaskController.class)`: Spins up only the web slice for fast execution.
+  * `@MockBean private TaskService`: Mockito mocks the service layer.
+  * `MockMvc`: Simulates GET/POST HTTP calls and asserts status codes and JSON path structures.
+
+File: /server/src/test/java/com/taskflow/controller/SignupControllerTest.java
+- Concepts & Standards: Web Slice Unit Testing, Boundary Value Analysis, Negative Edge-Case Testing.
+- Framework Features:
+  * Asserts 201 Created on valid signup.
+  * Asserts 400 Bad Request when password is under 8 characters.
+  * Asserts 409 Conflict on duplicate email registration.
+  * Asserts password/passwordHash are never leaked in the JSON response.
+
+File: /server/src/test/java/com/taskflow/service/TaskServiceTest.java
+- Concepts & Standards: Pure Unit Testing, Isolated Behavior Verification.
+- Framework Features:
+  * JUnit 5 `@ExtendWith(MockitoExtension.class)`.
+  * `@Mock TaskRepository` & `@InjectMocks TaskService`: Verifies business logic without hitting a real database.
+  * AssertJ assertions (`assertThat()`).
+
+File: /server/src/test/java/com/taskflow/integration/TaskFlowIntegrationTest.java
+- Concepts & Standards: Full-Stack Integration Testing, End-to-End Verification with Live SQL Database.
+- Framework Features:
+  * `@SpringBootTest` + `@AutoConfigureMockMvc`.
+  * Real persistence in an embedded SQL database (`TaskRepository` and `UserRepository`).
+  * End-to-end verification: Submits POST, verifies SQL row count, asserts retrieval via GET.
+  * Verifies BCrypt hash persistence in the SQL database.
+
+====================================================================================================
+                                      END OF SKELETAL MAP
+====================================================================================================
